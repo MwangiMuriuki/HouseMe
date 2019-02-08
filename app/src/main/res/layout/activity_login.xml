@@ -27,7 +27,93 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3">
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        android:isScrollContainer="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOGIN WITH"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"/>
+
+        <LinearLayout
+            android:id="@+id/layoutSocial"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp">
+
+            <ImageButton
+            android:id="@+id/facebook_login"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/facebook"
+            android:background="@drawable/rounded_button_facebook"
+            android:scaleType="fitCenter"
+            android:contentDescription="favicon"
+            android:adjustViewBounds="true"
+            android:padding="10dp"
+            android:layout_margin="10dp"/>
+
+            <ImageButton
+                android:id="@+id/google_login"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/google_plus"
+                android:background="@drawable/rounded_button_google"
+                android:scaleType="fitCenter"
+                android:contentDescription="favicon"
+                android:adjustViewBounds="true"
+                android:padding="10dp"
+                android:layout_margin="10dp"/>
+
+            <ImageButton
+                android:id="@+id/twitter_login"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/twitter"
+                android:background="@drawable/rounded_button_twitter"
+                android:scaleType="fitCenter"
+                android:contentDescription="favicon"
+                android:adjustViewBounds="true"
+                android:padding="10dp"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <View
+                android:layout_width="130dp"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OR"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"/>
+            <View
+                android:layout_width="130dp"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"/>
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/email"
@@ -53,7 +139,53 @@
             android:hint="Password"
             android:inputType="textPassword"/>
 
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="140dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="start"
+                android:layout_margin="5dp">
+                <CheckBox
+                    android:id="@+id/rememberMe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Remember me"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_gravity="center|start"
+                    android:layout_margin="5dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:layout_margin="5dp">
+                <TextView
+                    android:id="@+id/resetPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Reset Password"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+        </LinearLayout>
+
         <Button
+            android:id="@+id/buttonLogin"
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:text="Login"
@@ -63,28 +195,19 @@
             android:padding="8dp"
             android:background="@drawable/rounded_corners_buttons"/>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textViewRegister"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal">
-
-            <!--<ImageButton-->
-            <!--android:layout_width="50dp"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:src="@drawable/facebook"/>-->
-
-            <!--<ImageButton-->
-                <!--android:layout_width="40dp"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:src="@drawable/facebook"/>-->
-
-            <!--<ImageButton-->
-                <!--android:layout_width="40dp"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:src="@drawable/facebook"/>-->
-
-        </LinearLayout>
+            android:layout_height="30dp"
+            android:text="New to House Me? Click here to Register"
+            android:textAlignment="center"
+            android:textStyle="bold|italic"
+            android:textColor="@color/colorPrimary"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:focusable="true"/>
 
     </LinearLayout>
 
