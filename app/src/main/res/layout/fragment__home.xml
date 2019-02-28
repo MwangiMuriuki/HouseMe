@@ -1,14 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment_Home">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:layout_margin="5dp">
 
-</FrameLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Search"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:maxLines="1"
+            android:background="@drawable/rounded_corners"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Just in:"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="sans-serif-condensed-medium"/>
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:padding="5dp">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="200dp"
+                android:layout_height="180dp"
+                android:background="@drawable/rounded_corners">
+
+            </android.support.v7.widget.CardView>
+
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="113dp">
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
