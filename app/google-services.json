@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "967880942501",
+    "firebase_url": "https://houseme-c8063.firebaseio.com",
+    "project_id": "houseme-c8063",
+    "storage_bucket": "houseme-c8063.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967880942501:android:52bf457282aa034b",
+        "android_client_info": {
+          "package_name": "com.example.houseme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967880942501-b9lmdvvqq73o8il3bfg9tf5fqcs83839.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.houseme",
+            "certificate_hash": "d06386df8f02782ca0a8c7f03a64e19a092c26e2"
+          }
+        },
+        {
+          "client_id": "967880942501-pgkgtttjmla26g3dckvll4ml2gv8k2bu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6l_AbpFR0Gc2pGvOqGLlqRkB9wl16cHE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "967880942501-pgkgtttjmla26g3dckvll4ml2gv8k2bu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
