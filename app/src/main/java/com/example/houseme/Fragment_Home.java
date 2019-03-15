@@ -68,6 +68,8 @@ public class Fragment_Home extends Fragment {
                                 documentSnapshot.getString("description"),
                                 documentSnapshot.getString("picture"));
 
+                        Toast.makeText(getContext(),documentSnapshot.getString("picture") , Toast.LENGTH_LONG).show();
+
                         list.add(modalClass);
                     }
 

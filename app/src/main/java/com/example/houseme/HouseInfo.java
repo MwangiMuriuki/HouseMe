@@ -1,6 +1,7 @@
 package com.example.houseme;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,10 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
@@ -20,6 +26,7 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
     List<ModalClass> modalClassList;
     Context context;
     FirebaseFirestore firebaseFirestore;
+    FirebaseStorage firebaseStorage;
 
     public HouseInfo(List<ModalClass> modalClassList, Context context, FirebaseFirestore firebaseFirestore) {
         this.modalClassList = modalClassList;
@@ -47,9 +54,8 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
         myViewHolder.size.setText(modalClass.getSize());
         myViewHolder.bathroom.setText(modalClass.getBath());
 
-        String imageUrl = modalClass.getPicture();
+        Glide.with(context).load(modalClass.getPicture()).placeholder(R.drawable.ic_rent).into(myViewHolder.image);
 
-        Glide.with(context).load(imageUrl).placeholder(R.drawable.house3).into(myViewHolder.image);
     }
 
     @Override
