@@ -13,7 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -27,6 +30,7 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
     Context context;
     FirebaseFirestore firebaseFirestore;
     FirebaseStorage firebaseStorage;
+    StorageReference storageReference;
 
     public HouseInfo(List<ModalClass> modalClassList, Context context, FirebaseFirestore firebaseFirestore) {
         this.modalClassList = modalClassList;
@@ -45,7 +49,7 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder myViewHolder, int position) {
 
         ModalClass modalClass = modalClassList.get(position);
 
@@ -54,7 +58,29 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
         myViewHolder.size.setText(modalClass.getSize());
         myViewHolder.bathroom.setText(modalClass.getBath());
 
-        Glide.with(context).load(modalClass.getPicture()).placeholder(R.drawable.ic_rent).into(myViewHolder.image);
+        storageReference = FirebaseStorage.getInstance().getReference();
+        final StorageReference newRef = storageReference.child("house_images");
+        try {
+            File localFile = File.createTempFile("images", "png");
+
+            newRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                    Glide.with(context).load(newRef).placeholder(R.drawable.ic_rent).into(myViewHolder.image);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//
+//        Glide.with(context).load(newRef).placeholder(R.drawable.ic_rent).into(myViewHolder.image);
 
     }
 

@@ -77,6 +77,10 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+        if (id == R.id.action_profile) {
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -119,6 +123,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.hotels:
                 fragment = new Fragment_HotelRooms();
+                break;
+            case R.id.addProperty:
+                fragment = new Fragment_Add_Property();
                 break;
             case R.id.logout:
                 Intent logout = new Intent(getApplicationContext(), Login.class);

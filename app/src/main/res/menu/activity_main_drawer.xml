@@ -27,6 +27,11 @@
             android:title="Hotel Rooms" />
 
         <item
+            android:id="@+id/addProperty"
+            android:icon="@drawable/ic_addpropertyicon"
+            android:title="Add Property" />
+
+        <item
             android:id="@+id/logout"
             android:icon="@drawable/ic_logout"
             android:title="Logout" />
