@@ -32,6 +32,8 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
 
+    Uri imageUri;
+
     public HouseInfo(List<ModalClass> modalClassList, Context context, FirebaseFirestore firebaseFirestore) {
         this.modalClassList = modalClassList;
         this.context = context;
@@ -58,30 +60,41 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
         myViewHolder.size.setText(modalClass.getSize());
         myViewHolder.bathroom.setText(modalClass.getBath());
 
-        storageReference = FirebaseStorage.getInstance().getReference();
-        final StorageReference newRef = storageReference.child("house_images");
-        try {
-            File localFile = File.createTempFile("images", "png");
+        imageUri = Uri.parse(modalClass.getPicture());
 
-            newRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//        Glide.with(context).load(modalClass.getPicture()).into(myViewHolder.image);
+        Glide.with(context).load(modalClass.getDescription()).into(myViewHolder.image);
 
-                    Glide.with(context).load(newRef).placeholder(R.drawable.ic_rent).into(myViewHolder.image);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        storageReference = FirebaseStorage.getInstance().getReference();
+//        final StorageReference newRef = storageReference.child("house_images");
+//        try {
+//            File localFile = File.createTempFile("images", "png");
+//
+//            newRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//
+//                    Glide.with(context).load(newRef).placeholder(R.drawable.ic_rent).into(myViewHolder.image);
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//
+//                }
+//            });
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 //
 //        Glide.with(context).load(newRef).placeholder(R.drawable.ic_rent).into(myViewHolder.image);
 
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        return super.getItemViewType(position);
     }
 
     @Override
@@ -92,7 +105,7 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
-        TextView price,location,size, bathroom, description;
+        TextView price,location,size, bathroom, description, picUrl;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,6 +115,7 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
             location = itemView.findViewById(R.id.houseLocation);
             size = itemView.findViewById(R.id.houseSize);
             bathroom = itemView.findViewById(R.id.houseBaths);
+
         }
     }
 }

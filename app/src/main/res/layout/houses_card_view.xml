@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:saveEnabled="true"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_for_sale"/>
 
         <TextView

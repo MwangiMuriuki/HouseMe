@@ -1,31 +1,31 @@
 package com.example.houseme;
 
 public class ModalClass {
-    private String location;
+    private String picture;
     private String price;
+    private String location;
     private String size;
     private String bath;
-    private String picture;
     private String description;
 
     public ModalClass() {
     }
 
-    public ModalClass(String location, String price, String bath, String size, String picture, String description) {
-        this.location = location;
+    public ModalClass(String picture, String price, String location, String size, String bath, String description) {
+        this.picture = picture;
         this.price = price;
+        this.location = location;
         this.size = size;
         this.bath = bath;
-        this.picture = picture;
         this.description = description;
     }
 
-    public String getLocation() {
-        return location;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getPrice() {
@@ -36,11 +36,19 @@ public class ModalClass {
         this.price = price;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public String getSize() {
         return size;
     }
 
-    public void setSize(String bedrooms) {
+    public void setSize(String size) {
         this.size = size;
     }
 
@@ -48,16 +56,8 @@ public class ModalClass {
         return bath;
     }
 
-    public void setBath(String bathrooms) {
+    public void setBath(String bath) {
         this.bath = bath;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String image) {
-        this.picture = picture;
     }
 
     public String getDescription() {
