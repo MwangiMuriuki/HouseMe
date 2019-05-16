@@ -9,4 +9,24 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lorem">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lacinia ligula. Cras velit ligula, efficitur eget aliquam vitae, pulvinar nec nisi.
+        Vivamus tempus nisl et justo tempor placerat eu eget felis. Duis ac purus hendrerit, semper tortor eget, ultrices massa.
+        Donec dapibus lectus eget commodo maximus. Etiam mollis tempus nisi, nec pellentesque tellus mollis in. Duis ornare dui at tellus ultricies, quis blandit metus tristique.
+        Vestibulum facilisis nisl eros, ac ultrices nisi rutrum quis. Phasellus sed consequat erat, eu consectetur massa.
+/n
+        Proin fringilla mauris vitae orci dignissim gravida. Nunc id tellus quam. Ut luctus ipsum sed tempor hendrerit. In hac habitasse platea dictumst.
+        Donec ac massa sollicitudin, molestie risus non, iaculis risus. Nunc ut gravida nunc. Donec venenatis dignissim urna sed cursus.
+/n
+        Phasellus eleifend diam non interdum accumsan. Nullam ultrices feugiat varius. Nunc ut lacus malesuada, scelerisque tortor lobortis, auctor est.
+        Mauris magna nunc, congue vel purus sed, ornare interdum metus. Cras rhoncus elit sed semper volutpat. Vestibulum varius erat vel pretium efficitur.
+        Aenean eleifend, mi sed pellentesque facilisis, dolor lacus placerat urna, eget dapibus tellus velit tempus nibh.
+/n
+        Nunc a convallis leo. Nullam blandit, felis non fermentum porta, mi ipsum malesuada orci, at cursus diam urna eu nisl.
+        Ut vel vehicula nibh. Phasellus sit amet tempus lacus. Vestibulum fermentum, nisi nec sagittis porta, eros lacus auctor purus, nec iaculis odio dolor vitae dolor.
+        Nullam ultricies imperdiet justo, ac condimentum quam dapibus vel. Vestibulum dapibus risus est, sed elementum ligula porttitor at.
+        In sollicitudin, sapien ac imperdiet feugiat, nunc velit tincidunt justo, nec pretium dolor nulla sit amet urna. Donec scelerisque diam id nibh volutpat, in consectetur libero ornare.
+        Mauris et felis posuere, venenatis urna a, placerat mauris. Quisque tincidunt lorem ut dapibus gravida. In non turpis enim.
+
+    </string>
 </resources>
