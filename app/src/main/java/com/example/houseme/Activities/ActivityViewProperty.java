@@ -1,7 +1,9 @@
-package com.example.houseme;
+package com.example.houseme.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.houseme.R;
 
 public class ActivityViewProperty extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.houseme;
+package com.example.houseme.Fragments;
 
 
 import android.net.Uri;
@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.houseme.Adapters.AdapterHouseInfo;
+import com.example.houseme.Models.ModelClassHouseInfo;
+import com.example.houseme.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,8 +34,8 @@ public class Fragment_Home extends Fragment {
     FirebaseFirestore firebaseFirestore;
     EditText search;
 
-    List<ModalClass> list;
-    HouseInfo adapterHouseInfo;
+    List<ModelClassHouseInfo> list;
+    AdapterHouseInfo adapterHouseInfo;
 
     Uri imageUri;
 
@@ -54,7 +57,7 @@ public class Fragment_Home extends Fragment {
         GridLayoutManager grid = new GridLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext(), 2);
         recyclerView.setLayoutManager(grid);
 
-        adapterHouseInfo = new HouseInfo(list, getActivity(), firebaseFirestore);
+        adapterHouseInfo = new AdapterHouseInfo(list, getActivity(), firebaseFirestore);
         recyclerView.scrollToPosition(list.size() -1);
         recyclerView.setAdapter(adapterHouseInfo);
 
@@ -67,7 +70,7 @@ public class Fragment_Home extends Fragment {
 
                     for (DocumentSnapshot documentSnapshot: task.getResult()){
 
-                        ModalClass modalClass = new ModalClass(documentSnapshot.getString("price"),
+                        ModelClassHouseInfo modelClassHouseInfo = new ModelClassHouseInfo(documentSnapshot.getString("price"),
                                 documentSnapshot.getString("location"),
                                 documentSnapshot.getString("size"),
                                 documentSnapshot.getString("bath"),
@@ -79,7 +82,7 @@ public class Fragment_Home extends Fragment {
 
                         Toast.makeText(getContext(), imageUri.toString(), Toast.LENGTH_LONG).show();
 
-                        list.add(modalClass);
+                        list.add(modelClassHouseInfo);
                     }
 
                     adapterHouseInfo.notifyDataSetChanged();

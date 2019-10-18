@@ -1,4 +1,4 @@
-package com.example.houseme;
+package com.example.houseme.Fragments;
 
 
 import android.content.ClipData;
@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.annotation.Nullable;
+
+import com.example.houseme.R;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;

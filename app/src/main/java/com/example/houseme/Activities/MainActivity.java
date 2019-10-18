@@ -1,4 +1,4 @@
-package com.example.houseme;
+package com.example.houseme.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,13 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.houseme.Activities.ActivityLogin;
+import com.example.houseme.Fragments.Fragment_Add_Property;
+import com.example.houseme.Fragments.Fragment_ForSale;
+import com.example.houseme.Fragments.Fragment_Home;
+import com.example.houseme.Fragments.Fragment_HotelRooms;
+import com.example.houseme.Fragments.Fragment_Rental;
+import com.example.houseme.R;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -117,7 +124,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new Fragment_Add_Property();
                 break;
             case R.id.logout:
-                Intent logout = new Intent(getApplicationContext(), Login.class);
+                Intent logout = new Intent(getApplicationContext(), ActivityLogin.class);
                 startActivity(logout);
                 break;
         }

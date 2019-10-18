@@ -23,14 +23,18 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer">
 
-        <!--<ExpandableListView-->
-            <!--android:id="@+id/expandableListView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="@dimen/nav_header_height"-->
-            <!--android:background="@android:color/white"-->
-            <!--android:dividerHeight="0dp"-->
-            <!--android:groupIndicator="@null"/>-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include
+                android:id="@+id/header"
+                layout="@layout/drawer_header" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/header"/>
+        </RelativeLayout>
 
     </com.google.android.material.navigation.NavigationView>
 

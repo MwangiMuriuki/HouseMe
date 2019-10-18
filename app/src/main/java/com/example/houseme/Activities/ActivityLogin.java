@@ -1,4 +1,4 @@
-package com.example.houseme;
+package com.example.houseme.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.houseme.R;
 
-public class Login extends Activity {
+
+public class ActivityLogin extends Activity {
     Button login;
     TextView register, resetPwd;
     @Override
@@ -31,7 +33,7 @@ public class Login extends Activity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent reg = new Intent(getApplication(), Register.class);
+                Intent reg = new Intent(getApplication(), ActivityRegister.class);
                 startActivity(reg);
             }
         });
@@ -39,7 +41,7 @@ public class Login extends Activity {
         resetPwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent reset = new Intent(getApplication(), ResetPassword.class);
+                Intent reset = new Intent(getApplication(), ActivityResetPassword.class);
                 startActivity(reset);
             }
         });

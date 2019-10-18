@@ -1,4 +1,4 @@
-package com.example.houseme;
+package com.example.houseme.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.houseme.Activities.ActivityViewProperty;
+import com.example.houseme.Models.ModelClassHouseInfo;
+import com.example.houseme.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -23,9 +26,9 @@ import java.util.List;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
-public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
+public class AdapterHouseInfo extends RecyclerView.Adapter<AdapterHouseInfo.ViewHolder> {
 
-    List<ModalClass> modalClassList;
+    List<ModelClassHouseInfo> modelClassHouseInfoList;
     Context context;
     FirebaseFirestore firebaseFirestore;
     FirebaseStorage firebaseStorage;
@@ -33,8 +36,8 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
 
     Uri imageUri;
 
-    public HouseInfo(List<ModalClass> modalClassList, Context context, FirebaseFirestore firebaseFirestore) {
-        this.modalClassList = modalClassList;
+    public AdapterHouseInfo(List<ModelClassHouseInfo> modelClassHouseInfoList, Context context, FirebaseFirestore firebaseFirestore) {
+        this.modelClassHouseInfoList = modelClassHouseInfoList;
         this.context = context;
         this.firebaseFirestore = firebaseFirestore;
     }
@@ -44,7 +47,7 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View myView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.houses_card_view, viewGroup, false);
-        HouseInfo.ViewHolder viewHolder = new HouseInfo.ViewHolder(myView);
+        AdapterHouseInfo.ViewHolder viewHolder = new AdapterHouseInfo.ViewHolder(myView);
 
         return viewHolder;
     }
@@ -53,17 +56,17 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder myViewHolder, int position) {
         int pos = myViewHolder.getAdapterPosition();
 
-        ModalClass modalClass = modalClassList.get(pos);
+        ModelClassHouseInfo modelClassHouseInfo = modelClassHouseInfoList.get(pos);
 
-        myViewHolder.price.setText(modalClass.getPrice());
-        myViewHolder.location.setText(modalClass.getLocation());
-        myViewHolder.size.setText(modalClass.getSize());
-        myViewHolder.bathroom.setText(modalClass.getBath());
+        myViewHolder.price.setText(modelClassHouseInfo.getPrice());
+        myViewHolder.location.setText(modelClassHouseInfo.getLocation());
+        myViewHolder.size.setText(modelClassHouseInfo.getSize());
+        myViewHolder.bathroom.setText(modelClassHouseInfo.getBath());
 
-        imageUri = Uri.parse(modalClass.getPicture());
+        imageUri = Uri.parse(modelClassHouseInfo.getPicture());
 
-//        Glide.with(context).load(modalClass.getPicture()).into(myViewHolder.image);
-        Glide.with(context).load(modalClass.getDescription()).into(myViewHolder.image);
+//        Glide.with(context).load(modelClassHouseInfo.getPicture()).into(myViewHolder.image);
+        Glide.with(context).load(modelClassHouseInfo.getDescription()).into(myViewHolder.image);
 
         Log.e(TAG, "Item: " + position);
 
@@ -91,7 +94,7 @@ public class HouseInfo extends RecyclerView.Adapter<HouseInfo.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return modalClassList.size();
+        return modelClassHouseInfoList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

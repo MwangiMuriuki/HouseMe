@@ -1,4 +1,4 @@
-package com.example.houseme;
+package com.example.houseme.Adapters;
 
 import android.content.Context;
 import androidx.annotation.NonNull;

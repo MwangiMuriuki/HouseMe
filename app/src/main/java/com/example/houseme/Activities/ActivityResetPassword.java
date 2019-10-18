@@ -1,9 +1,11 @@
-package com.example.houseme;
+package com.example.houseme.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 
-public class ResetPassword extends Activity {
+import com.example.houseme.R;
+
+public class ActivityResetPassword extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

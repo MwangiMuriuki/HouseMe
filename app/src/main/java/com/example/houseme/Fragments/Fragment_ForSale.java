@@ -1,4 +1,4 @@
-package com.example.houseme;
+package com.example.houseme.Fragments;
 
 
 import android.os.Bundle;
@@ -8,14 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.houseme.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment_Rental extends Fragment {
+public class Fragment_ForSale extends Fragment {
 
 
-    public Fragment_Rental() {
+    public Fragment_ForSale() {
         // Required empty public constructor
     }
 
@@ -24,14 +26,13 @@ public class Fragment_Rental extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__rental, container, false);
+        return inflater.inflate(R.layout.fragment__for_sale, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
-        getActivity().setTitle("Rentals");
+        getActivity().setTitle("For Sale");
     }
-
 }

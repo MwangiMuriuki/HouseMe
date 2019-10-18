@@ -1,6 +1,6 @@
-package com.example.houseme;
+package com.example.houseme.Models;
 
-public class ModalClass {
+public class ModelClassHouseInfo {
     private String picture;
     private String price;
     private String location;
@@ -8,10 +8,10 @@ public class ModalClass {
     private String bath;
     private String description;
 
-    public ModalClass() {
+    public ModelClassHouseInfo() {
     }
 
-    public ModalClass(String picture, String price, String location, String size, String bath, String description) {
+    public ModelClassHouseInfo(String picture, String price, String location, String size, String bath, String description) {
         this.picture = picture;
         this.price = price;
         this.location = location;
