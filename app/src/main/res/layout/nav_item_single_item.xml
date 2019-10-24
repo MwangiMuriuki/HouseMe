@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/navLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_hotel"/>
+
+                <TextView
+                    android:id="@+id/navItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:lineSpacingMultiplier="0.6"
+                    android:layout_marginStart="10dp"
+                    android:text="Item"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="15sp"
+                    android:textStyle="normal"/>
+
+        </LinearLayout>
+
+</LinearLayout>

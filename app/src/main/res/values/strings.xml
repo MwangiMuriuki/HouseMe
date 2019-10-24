@@ -29,4 +29,16 @@
         Mauris et felis posuere, venenatis urna a, placerat mauris. Quisque tincidunt lorem ut dapibus gravida. In non turpis enim.
 
     </string>
+    <string name="call_to_enquire">Call To Enquire</string>
+    <string name="search_property">Search</string>
+    <string name="home">Home</string>
+    <string name="rentals">Rentals</string>
+    <string name="hotel_rooms">Hotel Rooms</string>
+    <string name="second_level_menu">Second Level Menu</string>
+    <string name="for_sale">For Sale</string>
+    <string name="two_bedroom">Two Bedroom</string>
+    <string name="three_bedroom">Three Bedroom</string>
+    <string name="four_bedroom">Four Bedrooms</string>
+    <string name="logout">Logout</string>
+    <string name="add_property">Add Property</string>
 </resources>

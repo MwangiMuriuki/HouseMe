@@ -10,7 +10,10 @@ import android.provider.MediaStore;
 import androidx.annotation.Nullable;
 
 import com.example.houseme.R;
+import com.example.houseme.databinding.FragmentAddPropertyBinding;
 import com.google.android.material.textfield.TextInputLayout;
+
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
@@ -30,9 +33,9 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment_Add_Property extends Fragment {
+public class FragmentAddProperty extends Fragment {
 
-    ImageView imageView;
+    FragmentAddPropertyBinding binding;
     TextInputLayout location, size, bath, price, desc;
     Button addPictures, propertyUpload;
 
@@ -48,7 +51,7 @@ public class Fragment_Add_Property extends Fragment {
     ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
 
 
-    public Fragment_Add_Property() {
+    public FragmentAddProperty() {
         // Required empty public constructor
     }
 
@@ -56,35 +59,31 @@ public class Fragment_Add_Property extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View myView = inflater.inflate(R.layout.fragment__add__property, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_property, container, false);
         init();
-         imageView = myView.findViewById(R.id.selectHouseImage);
-         imageView.setOnClickListener(new View.OnClickListener() {
+
+        binding.featuredImage.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
                  selectImage();
              }
-         });
+        });
 
-         location = myView.findViewById(R.id.location);
-         size = myView.findViewById(R.id.size);
-         bath = myView.findViewById(R.id.bathrooms);
-         price = myView.findViewById(R.id.price);
-         desc = myView.findViewById(R.id.desc);
+        binding.image1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectImage();
+            }
+        });
 
-         addPictures = myView.findViewById(R.id.selectAdditionalImages);
-         addPictures.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
+        binding.image2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectImage();
+            }
+        });
 
-//                 galleryHorizontalScrollView.setVisibility(View.VISIBLE);
-
-//                 selectMultipleImages();
-             }
-         });
-         propertyUpload = myView.findViewById(R.id.uploadHouse);
-
-        return myView;
+        return binding.getRoot();
     }
 
     private void init() {
@@ -144,12 +143,10 @@ public class Fragment_Add_Property extends Fragment {
 
             if (requestCode== PICK_IMAGE_SINGLE && resultCode == RESULT_OK){
                 resultUri = data.getData();
-                imageView.setImageURI(resultUri);
+                binding.featuredImage.setImageURI(resultUri);
             }
             if (requestCode== PICK_IMAGE_MULTIPLE && resultCode == RESULT_OK){
                 if (data.getClipData() != null){
-
-
 
                     String[] filePathColumn = { MediaStore.Images.Media.DATA };
                     imagesEncodedList = new ArrayList<String>();
@@ -167,7 +164,6 @@ public class Fragment_Add_Property extends Fragment {
                         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                         imageEncoded = cursor.getString(columnIndex);
                         cursor.close();
-
 
                     }
 

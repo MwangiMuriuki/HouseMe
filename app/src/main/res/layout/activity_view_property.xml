@@ -1,222 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragments.Fragment_Add_Property">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <data>
 
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_height="match_parent"
+        tools:context=".Fragments.FragmentAddProperty">
 
-        <LinearLayout
+        <ScrollView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:isScrollContainer="true"
-            android:orientation="vertical">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
-            <ImageView
-                android:id="@+id/selectHouseImage"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginTop="5dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/addhouse" />
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:isScrollContainer="true"
+                android:orientation="vertical">
 
-            <HorizontalScrollView
-                android:id="@+id/galleryScrollView"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:visibility="visible">
+                <ImageView
+                    android:id="@+id/selectHouseImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/addhouse" />
 
-                <LinearLayout
-                    android:id="@+id/galleryLayout"
+                <HorizontalScrollView
+                    android:id="@+id/galleryScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/galleryLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/addhouse"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerCrop" />
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/addhouse"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerCrop" />
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/addhouse"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerCrop" />
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/addhouse"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerCrop" />
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/addhouse"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerCrop" />
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/addhouse"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerCrop" />
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+                <TextView
+                    android:id="@+id/locationTitle"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Location:"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="left" />
 
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/addhouse"
-                        android:layout_gravity="center_vertical"
-                        android:scaleType="centerCrop"/>
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/addhouse"
-                        android:layout_gravity="center_vertical"
-                        android:scaleType="centerCrop"/>
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/addhouse"
-                        android:layout_gravity="center_vertical"
-                        android:scaleType="centerCrop"/>
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/addhouse"
-                        android:layout_gravity="center_vertical"
-                        android:scaleType="centerCrop"/>
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/addhouse"
-                        android:layout_gravity="center_vertical"
-                        android:scaleType="centerCrop"/>
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/addhouse"
-                        android:layout_gravity="center_vertical"
-                        android:scaleType="centerCrop"/>
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Kasarani, opposite Naivas Supermarket"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="left" />
 
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/priceTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Price:"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="left" />
 
-            </HorizontalScrollView>
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Ksh. 8,000"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="left" />
 
-            <TextView
-                android:id="@+id/locationTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="3dp"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Location:"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_gravity="left"/>
+                <TextView
+                    android:id="@+id/keyFeaturesTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Key Features:"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="left" />
 
-            <TextView
-                android:id="@+id/location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Kasarani, opposite Naivas Supermarket"
-                android:textColor="@color/colorBlack"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:layout_gravity="left"/>
+                <TextView
+                    android:id="@+id/houseSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginStart="3dp"
+                    android:text="Bedsitter"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="left" />
 
-            <TextView
-                android:id="@+id/priceTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="3dp"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Price:"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_gravity="left"/>
+                <TextView
+                    android:id="@+id/houseBaths"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginStart="3dp"
+                    android:text="1 bathroom"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:layout_gravity="left" />
 
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Ksh. 8,000"
-                android:textColor="@color/colorBlack"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:layout_gravity="left"/>
+                <TextView
+                    android:id="@+id/descriptionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Property Description:"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="left" />
 
-            <TextView
-                android:id="@+id/keyFeaturesTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="3dp"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Key Features:"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_gravity="left"/>
-            <TextView
-                android:id="@+id/houseSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:layout_marginStart="3dp"
-                android:text="Bedsitter"
-                android:textColor="@color/colorBlack"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_gravity="left"/>
-            <TextView
-                android:id="@+id/houseBaths"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:layout_marginStart="3dp"
-                android:text="1 bathroom"
-                android:textStyle="bold"
-                android:textColor="@color/colorBlack"
-                android:textSize="16sp"
-                android:layout_gravity="left"/>
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginStart="3dp"
+                    android:text="@string/lorem"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:layout_gravity="left" />
 
-            <TextView
-                android:id="@+id/descriptionTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="3dp"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Property Description:"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_gravity="left"/>
+                <Button
+                    android:id="@+id/uploadProperty"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/call_to_enquire"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:layout_marginStart="3dp"
-                android:text="@string/lorem"
-                android:textColor="@color/colorBlack"
-                android:textSize="16sp"
-                android:layout_gravity="left"/>
+            </LinearLayout>
+        </ScrollView>
 
-            <Button
-                android:id="@+id/uploadHouse"
-                android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded_corners_buttons"
-                android:text="Call To Enquire"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -39,17 +39,15 @@ public class Fragment_Home extends Fragment {
 
     Uri imageUri;
 
-
     public Fragment_Home() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vw = inflater.inflate(R.layout.houses_recycler_view_layout, container, false);
+        View vw = inflater.inflate(R.layout.fragment_home, container, false);
         list = new ArrayList<>();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -60,7 +58,6 @@ public class Fragment_Home extends Fragment {
         adapterHouseInfo = new AdapterHouseInfo(list, getActivity(), firebaseFirestore);
         recyclerView.scrollToPosition(list.size() -1);
         recyclerView.setAdapter(adapterHouseInfo);
-
 
         firebaseFirestore.collection("Houses").orderBy("price", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -90,7 +87,6 @@ public class Fragment_Home extends Fragment {
                 }else{
                     Toast.makeText(getContext(), "Error Getting info", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
