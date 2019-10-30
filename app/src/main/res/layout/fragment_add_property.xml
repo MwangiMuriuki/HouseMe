@@ -13,7 +13,6 @@
         tools:context=".Fragments.FragmentAddProperty">
 
         <ScrollView
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -65,7 +64,7 @@
                             android:layout_margin="5dp"
                             android:src="@drawable/addhouse"
                             android:layout_gravity="center_vertical"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="centerCrop"/>
 
                         <ImageView
                             android:id="@+id/image2"
@@ -77,6 +76,7 @@
                             android:scaleType="centerCrop" />
 
                         <ImageView
+                            android:id="@+id/image3"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:layout_margin="5dp"
@@ -85,6 +85,7 @@
                             android:scaleType="centerCrop" />
 
                         <ImageView
+                            android:id="@+id/image4"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:layout_margin="5dp"
@@ -93,14 +94,7 @@
                             android:scaleType="centerCrop" />
 
                         <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:layout_margin="5dp"
-                            android:src="@drawable/addhouse"
-                            android:layout_gravity="center_vertical"
-                            android:scaleType="centerCrop" />
-
-                        <ImageView
+                            android:id="@+id/image5"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:layout_margin="5dp"
@@ -110,41 +104,117 @@
 
                     </LinearLayout>
 
-
                 </HorizontalScrollView>
 
-                <Button
-                    android:id="@+id/selectAdditionalImages"
-                    android:layout_width="300dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/rounded_corners_buttons"
-                    android:text="Select More Images"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold" />
-
-
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/location"
+                    android:id="@+id/locationLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:ems="10"
+                    android:hint="Property Location"
+                    app:boxBackgroundColor="@color/colorWhite"
+                    app:boxStrokeColor="@color/colorPrimary"
                     app:hintTextAppearance="@style/HintText">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/location"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="10dp"
                         android:gravity="center_vertical"
-                        android:background="@drawable/rounded_corners"
-                        android:hint="Location"
-                        android:inputType="textAutoComplete"
-                        android:padding="5dp" />
+                        android:inputType="text"
+                        android:padding="5dp"
+                        android:textSize="16sp"
+                        android:drawableRight="@mipmap/ic_location"/>
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/size"
+                    android:id="@+id/bedroomsLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:ems="10"
+                    android:hint="Bedrooms"
+                    app:boxBackgroundColor="@color/colorWhite"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:hintTextAppearance="@style/HintText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/bedrooms"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:inputType="text"
+                        android:padding="5dp"
+                        android:textSize="16sp"
+                        android:drawableEnd="@mipmap/ic_bed"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/bathroomLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:ems="10"
+                    android:hint="Bathrooms"
+                    app:boxBackgroundColor="@color/colorWhite"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:hintTextAppearance="@style/HintText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/bathrooms"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:inputType="numberSigned"
+                        android:padding="5dp"
+                        android:textSize="16sp"
+                        android:drawableEnd="@mipmap/ic_shower"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/priceLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:ems="10"
+                    android:hint="Price"
+                    app:boxBackgroundColor="@color/colorWhite"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:hintTextAppearance="@style/HintText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/price"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:inputType="numberSigned"
+                        android:padding="5dp"
+                        android:textSize="16sp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/amenities"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -156,75 +226,64 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
                         android:background="@drawable/rounded_corners"
-                        android:hint="Size"
-                        android:inputType="textAutoComplete"
-                        android:padding="5dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/bathrooms"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    app:hintTextAppearance="@style/HintText">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/rounded_corners"
-                        android:hint="Bathrooms"
+                        android:hint="Amenities"
                         android:inputType="number"
                         android:padding="5dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/price"
+                    android:id="@+id/descriptionLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:ems="10"
+                    android:hint="Property Description"
+                    app:boxBackgroundColor="@color/colorWhite"
+                    app:boxStrokeColor="@color/colorPrimary"
                     app:hintTextAppearance="@style/HintText">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/description"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/rounded_corners"
-                        android:hint="Price"
-                        android:inputType="number"
-                        android:padding="5dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/desc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    app:hintTextAppearance="@style/HintText">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:background="@drawable/rounded_corners"
-                        android:hint="Description"
+                        android:layout_height="200dp"
+                        android:maxHeight="400dp"
+                        android:layout_marginTop="10dp"
                         android:gravity="top"
                         android:inputType="textMultiLine"
-                        android:maxHeight="400dp"
-                        android:padding="5dp" />
+                        android:padding="5dp"
+                        android:textSize="16sp"/>
+
                 </com.google.android.material.textfield.TextInputLayout>
 
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="10dp">
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rental"
+                            android:buttonTint="@color/colorPrimaryDark"/>
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="For Sale"
+                            android:buttonTint="@color/colorPrimaryDark"/>
+                    </RadioGroup>
+
+
                 <Button
-                    android:id="@+id/uploadHouse"
-                    android:layout_width="300dp"
+                    android:id="@+id/uploadProperty"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/rounded_corners_buttons"
+                    android:background="@color/colorPrimaryDark"
                     android:text="Upload Property"
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold" />

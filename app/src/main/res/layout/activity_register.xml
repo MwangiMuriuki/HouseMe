@@ -12,5 +12,184 @@
         android:layout_height="match_parent"
         tools:context=".Activities.ActivityRegister">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/registerToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                app:titleTextColor="@color/colorWhite" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+            app:layout_constraintBottom_toTopOf="@id/buttonRegister">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="45dp"
+                android:layout_marginBottom="20dp"
+                android:contentDescription="@string/logo"
+                android:src="@drawable/login_logo"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                android:hint="Full Name"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:inputType="textPersonName"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/regEmailLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                android:hint="Email"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/regEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                android:hint="Phone number"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:inputType="phone"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                android:hint="Password"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:inputType="textPassword"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                android:hint="Confirm Password"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:inputType="textPassword"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Register"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

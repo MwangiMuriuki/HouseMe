@@ -58,8 +58,6 @@ public class NavDrawerAdapter extends RecyclerView.Adapter<NavDrawerAdapter.MyVi
             }
         });
 
-
-
     }
 
     @Override
