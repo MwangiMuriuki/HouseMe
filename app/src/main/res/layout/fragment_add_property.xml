@@ -107,7 +107,7 @@
                 </HorizontalScrollView>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/locationLayout"
+                    android:id="@+id/townLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -115,10 +115,41 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:ems="10"
-                    android:hint="Property Location"
+                    android:hint="City/Region/Town/Area"
                     app:boxBackgroundColor="@color/colorWhite"
                     app:boxStrokeColor="@color/colorPrimary"
-                    app:hintTextAppearance="@style/HintText">
+                    app:hintTextAppearance="@style/HintText"
+                    app:helperText="(e.g Kasarani or Ruiru)"
+                    app:helperTextTextAppearance="@style/HelperText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/town"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:inputType="text"
+                        android:padding="5dp"
+                        android:textSize="16sp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/locationLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:ems="10"
+                    android:hint="Location Details"
+                    app:boxBackgroundColor="@color/colorWhite"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:hintTextAppearance="@style/HintText"
+                    app:helperTextEnabled="true"
+                    app:helperText="(e.g Name of Estate, along Valley Road)"
+                    app:helperTextTextAppearance="@style/HelperText">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/location"
@@ -128,8 +159,7 @@
                         android:gravity="center_vertical"
                         android:inputType="text"
                         android:padding="5dp"
-                        android:textSize="16sp"
-                        android:drawableRight="@mipmap/ic_location"/>
+                        android:textSize="16sp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -139,7 +169,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
                     android:ems="10"
                     android:hint="Bedrooms"
@@ -155,8 +185,7 @@
                         android:gravity="center_vertical"
                         android:inputType="text"
                         android:padding="5dp"
-                        android:textSize="16sp"
-                        android:drawableEnd="@mipmap/ic_bed"/>
+                        android:textSize="16sp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -182,8 +211,7 @@
                         android:gravity="center_vertical"
                         android:inputType="numberSigned"
                         android:padding="5dp"
-                        android:textSize="16sp"
-                        android:drawableEnd="@mipmap/ic_shower"/>
+                        android:textSize="16sp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -275,7 +303,6 @@
                             android:text="For Sale"
                             android:buttonTint="@color/colorPrimaryDark"/>
                     </RadioGroup>
-
 
                 <Button
                     android:id="@+id/uploadProperty"

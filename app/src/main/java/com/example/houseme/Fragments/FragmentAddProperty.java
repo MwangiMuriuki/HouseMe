@@ -17,10 +17,17 @@ import androidx.annotation.Nullable;
 import com.example.houseme.Models.PropertyInfoModelClass;
 import com.example.houseme.R;
 import com.example.houseme.databinding.FragmentAddPropertyBinding;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -36,7 +43,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -47,12 +56,20 @@ import static android.app.Activity.RESULT_OK;
 public class FragmentAddProperty extends Fragment {
 
     FragmentAddPropertyBinding binding;
-    String location, bedrooms, bath, price, desc;
-    Boolean forSale;
+    String region, location, bedrooms, bath, price, desc;
 
-    HorizontalScrollView galleryHorizontalScrollView;
+    StorageReference mStorageRef;
 
-    Uri resultUri;
+    Uri featuredImage;
+    Uri extraImage1;
+    Uri extraImage2;
+    Uri extraImage3;
+    Uri extraImage4;
+    Uri extraImage5;
+
+    String featured, extra1, extra2, extra3, extra4, extra5;
+    String featuredDownloadUrl, extra1DownloadUrl, extra2DownloadUrl, extra3DownloadUrl, extra4DownloadUrl, extra5DownloadUrl;
+
     int PICK_FEATURED_IMAGE= 100;
     int PICK_EXTRA_IMAGE_1 = 101;
     int PICK_EXTRA_IMAGE_2 = 102;
@@ -78,12 +95,7 @@ public class FragmentAddProperty extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_property, container, false);
         init();
 
-//        location = binding.locationLayout.getEditText().getText().toString();
-        location = binding.location.getText().toString();
-        bedrooms = binding.bedroomsLayout.getEditText().getText().toString();
-        bath = binding.bathroomLayout.getEditText().getText().toString();
-        price = binding.priceLayout.getEditText().getText().toString();
-        desc = binding.descriptionLayout.getEditText().getText().toString();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         binding.featuredImage.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -98,7 +110,6 @@ public class FragmentAddProperty extends Fragment {
                 selectExtraImage1();
             }
         });
-
         binding.image2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,8 +138,17 @@ public class FragmentAddProperty extends Fragment {
         binding.uploadProperty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mthdUploadProperty();
-//                validateFields(location, bedrooms, bath, price, desc);
+
+                region = binding.townLayout.getEditText().getText().toString();
+                location = binding.locationLayout.getEditText().getText().toString();
+                bedrooms = binding.bedroomsLayout.getEditText().getText().toString();
+                bath = binding.bathroomLayout.getEditText().getText().toString();
+                price = binding.priceLayout.getEditText().getText().toString();
+                desc = binding.descriptionLayout.getEditText().getText().toString();
+
+//                mthdUploadProperty();
+//                getData(location, bedrooms, bath, price, desc);
+                validateFields(region,location, bedrooms, bath, price, desc);
             }
         });
 
@@ -199,32 +219,33 @@ public class FragmentAddProperty extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
             if (requestCode== PICK_FEATURED_IMAGE && resultCode == RESULT_OK){
-                resultUri = data.getData();
-                binding.featuredImage.setImageURI(resultUri);
+                featuredImage = data.getData();
+                binding.featuredImage.setImageURI(featuredImage);
+                featured = featuredImage.toString();
             }
             if (requestCode== PICK_EXTRA_IMAGE_1 && resultCode == RESULT_OK){
-                resultUri = data.getData();
-                binding.image1.setImageURI(resultUri);
+                extraImage1 = data.getData();
+                binding.image1.setImageURI(extraImage1);
             }
             if (requestCode== PICK_EXTRA_IMAGE_2 && resultCode == RESULT_OK){
-                resultUri = data.getData();
-                binding.image2.setImageURI(resultUri);
+                extraImage2 = data.getData();
+                binding.image2.setImageURI(extraImage2);
             }
             if (requestCode== PICK_EXTRA_IMAGE_3 && resultCode == RESULT_OK){
-                resultUri = data.getData();
-                binding.image3.setImageURI(resultUri);
+                extraImage3 = data.getData();
+                binding.image3.setImageURI(extraImage3);
             }
             if (requestCode== PICK_EXTRA_IMAGE_4 && resultCode == RESULT_OK){
-                resultUri = data.getData();
-                binding.image4.setImageURI(resultUri);
+                extraImage4 = data.getData();
+                binding.image4.setImageURI(extraImage4);
             }
             if (requestCode== PICK_EXTRA_IMAGE_5 && resultCode == RESULT_OK){
-                resultUri = data.getData();
-                binding.image5.setImageURI(resultUri);
+                extraImage5 = data.getData();
+                binding.image5.setImageURI(extraImage5);
             }
     }
 
-    private void validateFields(String location, String bedrooms, String bath, String price, String desc) {
+    private void validateFields(String region, String location, String bedrooms, String bath, String price, String desc) {
 
         //CHECK IF DEVICE IS CONNECTED TO THE INTERNET
         ConnectivityManager cm = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -237,6 +258,7 @@ public class FragmentAddProperty extends Fragment {
 
         }else {
 
+            binding.town.setError(null);
             binding.location.setError(null);
             binding.bedrooms.setError(null);
             binding.bathrooms.setError(null);
@@ -246,7 +268,11 @@ public class FragmentAddProperty extends Fragment {
             boolean cancel = false;
             View focusView = null;
 
-            if (TextUtils.isEmpty(location)) {
+            if (TextUtils.isEmpty(region)) {
+                binding.location.setError("Please enter the Region.");
+                focusView = binding.location;
+                cancel = true;
+            }else if (TextUtils.isEmpty(location)) {
                 binding.location.setError("Please enter the Property Location.");
                 focusView = binding.location;
                 cancel = true;
@@ -271,17 +297,118 @@ public class FragmentAddProperty extends Fragment {
                 focusView.requestFocus();
             }else {
 
-                PropertyInfoModelClass propertyInfoModelClass = new PropertyInfoModelClass(null, null, null, null, null, null, location, bedrooms, bath, price, desc, null);
-                firestore.collection("Properties").document(location).set(propertyInfoModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
+                final StorageReference storageReference = mStorageRef.child("house_images/");
 
+                UploadTask uploadTask = storageReference.putFile(featuredImage);
+                UploadTask uploadTask1 = storageReference.putFile(extraImage1);
+                UploadTask uploadTask2 = storageReference.putFile(extraImage2);
+                UploadTask uploadTask3 = storageReference.putFile(extraImage3);
+                UploadTask uploadTask4 = storageReference.putFile(extraImage4);
+                UploadTask uploadTask5 = storageReference.putFile(extraImage5);
+
+                Task<Uri> task = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        return storageReference.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                         featuredDownloadUrl = storageReference.getDownloadUrl().toString();
+                    }
+                });
+
+                Task<Uri> task1 = uploadTask1.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        return storageReference.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        extra1DownloadUrl = storageReference.getDownloadUrl().toString();
+                    }
+                });
+
+                Task<Uri> task2 = uploadTask2.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        return storageReference.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        extra2DownloadUrl = storageReference.getDownloadUrl().toString();
+                    }
+                });
+
+                Task<Uri> task3 = uploadTask3.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        return storageReference.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        extra3DownloadUrl = storageReference.getDownloadUrl().toString();
+                    }
+                });
+
+                Task<Uri> task4 = uploadTask4.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        return storageReference.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        extra4DownloadUrl = storageReference.getDownloadUrl().toString();
+                    }
+                });
+                Task<Uri> task5 = uploadTask5.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        return storageReference.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        extra5DownloadUrl = storageReference.getDownloadUrl().toString();
+                    }
+                });
+
+                PropertyInfoModelClass propertyInfoModelClass = new PropertyInfoModelClass(featuredDownloadUrl, extra1DownloadUrl, extra2DownloadUrl, extra3DownloadUrl, extra4DownloadUrl, extra5DownloadUrl, price, region, location, bedrooms, bath, desc, null);
+//                firestore.collection("Properties").document(region).set(propertyInfoModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//
+//                        binding.town.setText("");
+//                        binding.location.setText("");
+//                        binding.bedrooms.setText("");
+//                        binding.bathrooms.setText("");
+//                        binding.price.setText("");
+//                        binding.description.setText("");
+//
+//                        Toast.makeText(getContext(), "Property has been added Successfully!", Toast.LENGTH_LONG).show();
+//
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+//                    }
+//                });
+
+                firestore.collection("Properties").add(propertyInfoModelClass).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+
+                        binding.town.setText("");
                         binding.location.setText("");
                         binding.bedrooms.setText("");
                         binding.bathrooms.setText("");
                         binding.price.setText("");
                         binding.description.setText("");
-
 
                         Toast.makeText(getContext(), "Property has been added Successfully!", Toast.LENGTH_LONG).show();
 
@@ -290,6 +417,7 @@ public class FragmentAddProperty extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
+                        Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -299,20 +427,16 @@ public class FragmentAddProperty extends Fragment {
     private void mthdUploadProperty() {
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        PropertyInfoModelClass propertyInfoModelClass = new PropertyInfoModelClass(null, null, null, null, null, null,region, location, bedrooms, bath, price, desc, null);
 
-        PropertyInfoModelClass propertyInfoModelClass = new PropertyInfoModelClass(null, null, null, null, null, null, location, bedrooms, bath, price, desc, null);
-        firestore.collection("Properties").document(location).set(propertyInfoModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+        Map<String, Object> user = new HashMap<>();
+        user.put("first", "Ada");
+        user.put("last", "Lovelace");
+        user.put("born", 1815);
+
+        firebaseFirestore.collection("properties").add(propertyInfoModelClass).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
-            public void onSuccess(Void aVoid) {
-
-                binding.location.setText("");
-                binding.bedrooms.setText("");
-                binding.bathrooms.setText("");
-                binding.price.setText("");
-                binding.description.setText("");
-
-
-                Toast.makeText(getContext(), "Property has been added Successfully!", Toast.LENGTH_LONG).show();
+            public void onSuccess(DocumentReference documentReference) {
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -321,6 +445,23 @@ public class FragmentAddProperty extends Fragment {
 
             }
         });
+
+//        firebaseFirestore.collection("users").document("test").set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//
+//                Toast.makeText(getContext(), "Success", Toast.LENGTH_LONG).show();
+//
+//
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//
+//                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+//
+//            }
+//        });
     }
 
     @Override

@@ -42,4 +42,5 @@
     <string name="logout">Logout</string>
     <string name="add_property">Add Property</string>
     <string name="logo">logo</string>
+    <string name="rental">Rental</string>
 </resources>

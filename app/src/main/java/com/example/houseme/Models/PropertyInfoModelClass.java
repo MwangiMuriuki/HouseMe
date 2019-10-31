@@ -9,6 +9,7 @@ public class PropertyInfoModelClass {
     String extra_image_four;
     String extra_image_five;
     String price;
+    String region;
     String location;
     String bedrooms;
     String bathrooms;
@@ -20,8 +21,7 @@ public class PropertyInfoModelClass {
 
     public PropertyInfoModelClass(String featured_image, String extra_image_one, String extra_image_two,
                                   String extra_image_three, String extra_image_four, String extra_image_five,
-                                  String price, String location, String bedrooms, String bathrooms, String description, Boolean forSale) {
-
+                                  String price, String region, String location, String bedrooms, String bathrooms, String description, Boolean forSale) {
         this.featured_image = featured_image;
         this.extra_image_one = extra_image_one;
         this.extra_image_two = extra_image_two;
@@ -29,6 +29,7 @@ public class PropertyInfoModelClass {
         this.extra_image_four = extra_image_four;
         this.extra_image_five = extra_image_five;
         this.price = price;
+        this.region = region;
         this.location = location;
         this.bedrooms = bedrooms;
         this.bathrooms = bathrooms;
@@ -90,6 +91,14 @@ public class PropertyInfoModelClass {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public String getLocation() {

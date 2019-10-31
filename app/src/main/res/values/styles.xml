@@ -23,5 +23,11 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="HelperText" parent="TextAppearance.Design.HelperText">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">italic</item>
+
+    </style>
+
 
 </resources>

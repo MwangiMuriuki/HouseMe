@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.houseme.Adapters.AdapterHouseInfo;
 import com.example.houseme.Models.ModelClassHouseInfo;
+import com.example.houseme.Models.PropertyInfoModelClass;
 import com.example.houseme.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +36,7 @@ public class Fragment_Home extends Fragment {
     EditText search;
 
     List<ModelClassHouseInfo> list;
+    List<PropertyInfoModelClass> propertyInfoList;
     AdapterHouseInfo adapterHouseInfo;
 
     Uri imageUri;
@@ -49,17 +51,17 @@ public class Fragment_Home extends Fragment {
         // Inflate the layout for this fragment
         View vw = inflater.inflate(R.layout.fragment_home, container, false);
         list = new ArrayList<>();
+        propertyInfoList = new ArrayList<>();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         recyclerView = vw.findViewById(R.id.housesRecyclerView);
         GridLayoutManager grid = new GridLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext(), 2);
         recyclerView.setLayoutManager(grid);
 
-        adapterHouseInfo = new AdapterHouseInfo(list, getActivity(), firebaseFirestore);
-        recyclerView.scrollToPosition(list.size() -1);
+        adapterHouseInfo = new AdapterHouseInfo(propertyInfoList, getActivity(), firebaseFirestore);
         recyclerView.setAdapter(adapterHouseInfo);
 
-        firebaseFirestore.collection("Houses").orderBy("price", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firebaseFirestore.collection("Properties").orderBy("region", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
@@ -67,19 +69,24 @@ public class Fragment_Home extends Fragment {
 
                     for (DocumentSnapshot documentSnapshot: task.getResult()){
 
-                        ModelClassHouseInfo modelClassHouseInfo = new ModelClassHouseInfo(documentSnapshot.getString("price"),
+                        PropertyInfoModelClass propertyInfo = new PropertyInfoModelClass(
+                                documentSnapshot.getString("featured_image"),
+                                documentSnapshot.getString("extra_image_one"),
+                                documentSnapshot.getString("extra_image_two"),
+                                documentSnapshot.getString("extra_image_three"),
+                                documentSnapshot.getString("extra_image_four"),
+                                documentSnapshot.getString("extra_image_five"),
+                                documentSnapshot.getString("price"),
+                                documentSnapshot.getString("region"),
                                 documentSnapshot.getString("location"),
-                                documentSnapshot.getString("size"),
-                                documentSnapshot.getString("bath"),
+                                documentSnapshot.getString("bedrooms"),
+                                documentSnapshot.getString("bathrooms"),
                                 documentSnapshot.getString("description"),
-                                documentSnapshot.getString("picture"));
+                                documentSnapshot.getBoolean("forSale"));
 
-                        imageUri = Uri.parse(documentSnapshot.getString("picture"));
+                        imageUri = Uri.parse(documentSnapshot.getString("featured_image"));
 
-
-                        Toast.makeText(getContext(), imageUri.toString(), Toast.LENGTH_LONG).show();
-
-                        list.add(modelClassHouseInfo);
+                        propertyInfoList.add(propertyInfo);
                     }
 
                     adapterHouseInfo.notifyDataSetChanged();

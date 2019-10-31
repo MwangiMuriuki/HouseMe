@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "967880942501-7av3nf8a0o3neepe5mido662ur5qesh1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.houseme",
+            "certificate_hash": "797964dfbac65346c782b06b953c18493091e260"
+          }
+        },
+        {
           "client_id": "967880942501-b9lmdvvqq73o8il3bfg9tf5fqcs83839.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -33,20 +41,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "967880942501-pgkgtttjmla26g3dckvll4ml2gv8k2bu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
