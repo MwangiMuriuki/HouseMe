@@ -34,6 +34,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,7 @@ public class FragmentAddProperty extends Fragment {
     String featured, extra1, extra2, extra3, extra4, extra5;
     String featuredDownloadUrl, extra1DownloadUrl, extra2DownloadUrl, extra3DownloadUrl, extra4DownloadUrl, extra5DownloadUrl;
 
+    int PICK_MULTIPLE = 1000;
     int PICK_FEATURED_IMAGE= 100;
     int PICK_EXTRA_IMAGE_1 = 101;
     int PICK_EXTRA_IMAGE_2 = 102;
@@ -93,7 +95,6 @@ public class FragmentAddProperty extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_property, container, false);
-        init();
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
@@ -102,6 +103,12 @@ public class FragmentAddProperty extends Fragment {
              public void onClick(View view) {
                  selectFeaturedImage();
              }
+        });
+        binding.multipleImages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickMultiple();
+            }
         });
 
         binding.image1.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +162,16 @@ public class FragmentAddProperty extends Fragment {
         return binding.getRoot();
     }
 
-    private void init() {
+    private void pickMultiple() {
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.putExtra("crop","true");
+        intent.putExtra("aspectX", 4);
+        intent.putExtra("aspectY", 3);
+        intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        startActivityForResult(Intent.createChooser(intent, "Select other images"), PICK_MULTIPLE);
     }
 
     private void selectFeaturedImage() {
@@ -218,6 +234,28 @@ public class FragmentAddProperty extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+            if (requestCode== PICK_MULTIPLE && resultCode == RESULT_OK){
+                ClipData clipData = data.getClipData();
+
+                if (clipData!=null){
+
+                    binding.image1.setImageURI(clipData.getItemAt(0).getUri());
+                    binding.image2.setImageURI(clipData.getItemAt(1).getUri());
+                    binding.image3.setImageURI(clipData.getItemAt(2).getUri());
+                    binding.image4.setImageURI(clipData.getItemAt(3).getUri());
+                    binding.image5.setImageURI(clipData.getItemAt(4).getUri());
+
+                    extra1DownloadUrl = String.valueOf(clipData.getItemAt(0).getUri());
+                    extra2DownloadUrl = String.valueOf(clipData.getItemAt(1).getUri());
+
+                    for (int i = 0; i<clipData.getItemCount(); i++){
+
+                        ClipData.Item item = clipData.getItemAt(i);
+                        Uri uri = item.getUri();
+                        Log.e("Selected Images URLs", uri.toString());
+                    }
+                }
+            }
             if (requestCode== PICK_FEATURED_IMAGE && resultCode == RESULT_OK){
                 featuredImage = data.getData();
                 binding.featuredImage.setImageURI(featuredImage);
