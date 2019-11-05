@@ -39,6 +39,8 @@ public class AdapterHouseInfo extends RecyclerView.Adapter<AdapterHouseInfo.View
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
 
+    String viewFeaturedImage, viewPrice, viewRegion, viewLocation, viewBedroom, viewBathrooms, viewParking, viewForSale, viewDesc;
+
     Uri imageUri;
     Boolean isForSale;
 
@@ -63,7 +65,7 @@ public class AdapterHouseInfo extends RecyclerView.Adapter<AdapterHouseInfo.View
     public void onBindViewHolder(@NonNull final ViewHolder myViewHolder, int position) {
         int pos = myViewHolder.getAdapterPosition();
 
-        PropertyInfoModelClass propertyInfoModelClass = propertyInfoModelClassList.get(pos);
+        final PropertyInfoModelClass propertyInfoModelClass = propertyInfoModelClassList.get(pos);
 
         int housePrice = Integer.parseInt(propertyInfoModelClass.getPrice());
 
@@ -95,8 +97,28 @@ public class AdapterHouseInfo extends RecyclerView.Adapter<AdapterHouseInfo.View
         myViewHolder.cardLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ActivityViewProperty.class);
-                context.startActivity(intent);
+
+                viewFeaturedImage = propertyInfoModelClass.getFeatured_image();
+                viewPrice = myViewHolder.price.getText().toString();
+                viewRegion = myViewHolder.region.getText().toString();
+                viewBathrooms = myViewHolder.bathroom.getText().toString();
+                viewBedroom = myViewHolder.bedrooms.getText().toString();
+                viewForSale = myViewHolder.status.getText().toString();
+                viewLocation = myViewHolder.location.getText().toString();
+                viewDesc = propertyInfoModelClass.getDescription().toString();
+
+                Intent viewProperty = new Intent(context, ActivityViewProperty.class);
+
+                viewProperty.putExtra("featuredImage", viewFeaturedImage);
+                viewProperty.putExtra("price", viewPrice);
+                viewProperty.putExtra("region", viewRegion);
+                viewProperty.putExtra("bathrooms", viewBathrooms);
+                viewProperty.putExtra("bedrooms", viewBedroom);
+                viewProperty.putExtra("forSale", viewForSale);
+                viewProperty.putExtra("propertyLocation", viewLocation);
+                viewProperty.putExtra("description", viewDesc);
+
+                context.startActivity(viewProperty);
 
             }
         });

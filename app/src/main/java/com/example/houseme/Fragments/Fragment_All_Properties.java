@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Fragment_Home extends Fragment {
+public class Fragment_All_Properties extends Fragment {
 
     RecyclerView recyclerView;
     FirebaseFirestore firebaseFirestore;
@@ -41,7 +41,7 @@ public class Fragment_Home extends Fragment {
 
     Uri imageUri;
 
-    public Fragment_Home() {
+    public Fragment_All_Properties() {
         // Required empty public constructor
     }
 
@@ -104,7 +104,7 @@ public class Fragment_Home extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
-        getActivity().setTitle("Home");
+        getActivity().setTitle("All Properties");
     }
 
 }

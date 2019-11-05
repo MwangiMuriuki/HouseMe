@@ -43,4 +43,7 @@
     <string name="add_property">Add Property</string>
     <string name="logo">logo</string>
     <string name="rental">Rental</string>
+    <string name="add_hotel_room">Add Hotel Room</string>
+    <string name="action_filter">Filter</string>
+    <string name="all_properties">All Properties</string>
 </resources>

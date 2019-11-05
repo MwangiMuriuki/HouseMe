@@ -1,21 +1,50 @@
 package com.example.houseme.Fragments;
 
 
+import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.houseme.Adapters.AdapterHouseInfo;
+import com.example.houseme.Models.PropertyInfoModelClass;
 import com.example.houseme.R;
+import com.example.houseme.databinding.FragmentForSaleBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_ForSale extends Fragment {
+    FragmentForSaleBinding binding;
 
+    FirebaseFirestore firebaseFirestore;
+    AdapterHouseInfo adapterHouseInfo;
+    List<PropertyInfoModelClass> propertyInfoList;
+
+    Uri imageUri;
 
     public Fragment_ForSale() {
         // Required empty public constructor
@@ -26,7 +55,58 @@ public class Fragment_ForSale extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__for_sale, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_for_sale, container, false);
+
+        propertyInfoList = new ArrayList<>();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
+        GridLayoutManager grid = new GridLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext(), 2);
+        binding.forSaleRecyclerView.setLayoutManager(grid);
+
+        adapterHouseInfo = new AdapterHouseInfo(propertyInfoList, getActivity(), firebaseFirestore);
+        binding.forSaleRecyclerView.setAdapter(adapterHouseInfo);
+
+        firebaseFirestore.collection("Properties")
+                .whereEqualTo("forSale", true)
+                .orderBy("region", Query.Direction.ASCENDING)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                if (task.isSuccessful()){
+
+                    for (DocumentSnapshot documentSnapshot: task.getResult()){
+
+                        PropertyInfoModelClass propertyInfo = new PropertyInfoModelClass(
+                                documentSnapshot.getString("featured_image"),
+                                documentSnapshot.getString("extra_image_one"),
+                                documentSnapshot.getString("extra_image_two"),
+                                documentSnapshot.getString("extra_image_three"),
+                                documentSnapshot.getString("extra_image_four"),
+                                documentSnapshot.getString("extra_image_five"),
+                                documentSnapshot.getString("price"),
+                                documentSnapshot.getString("region"),
+                                documentSnapshot.getString("location"),
+                                documentSnapshot.getString("bedrooms"),
+                                documentSnapshot.getString("bathrooms"),
+                                documentSnapshot.getString("description"),
+                                documentSnapshot.getBoolean("forSale"));
+
+                        imageUri = Uri.parse(documentSnapshot.getString("featured_image"));
+
+                        propertyInfoList.add(propertyInfo);
+                    }
+
+                    adapterHouseInfo.notifyDataSetChanged();
+
+                }else{
+                    Toast.makeText(getContext(), "Error Getting info", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+
+        return binding.getRoot();
     }
 
     @Override

@@ -1,18 +1,17 @@
 package com.example.houseme.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.houseme.Adapters.NavDrawerAdapter;
+import com.example.houseme.Fragments.FragmentAddHotelRooms;
 import com.example.houseme.Fragments.FragmentAddProperty;
 import com.example.houseme.Fragments.Fragment_ForSale;
-import com.example.houseme.Fragments.Fragment_Home;
+import com.example.houseme.Fragments.Fragment_All_Properties;
 import com.example.houseme.Fragments.Fragment_HotelRooms;
 import com.example.houseme.Fragments.Fragment_Rental;
 import com.example.houseme.Models.NavDrawerItems;
@@ -30,9 +29,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,9 +87,9 @@ public class MainActivity extends AppCompatActivity
 
         //Home
         NavDrawerItems home = new NavDrawerItems();
-        home.setTitle(getString(R.string.home));
+        home.setTitle(getString(R.string.all_properties));
         home.setFragment(true);
-        home.setFragmentName(new Fragment_Home());
+        home.setFragmentName(new Fragment_All_Properties());
         home.setImage_resource(R.drawable.ic_home);
         navDrawerItems.add(home);
 
@@ -105,14 +101,6 @@ public class MainActivity extends AppCompatActivity
         rentals.setImage_resource(R.drawable.ic_rent);
         navDrawerItems.add(rentals);
 
-        //Hotel Rooms
-        NavDrawerItems hotel_rooms = new NavDrawerItems();
-        hotel_rooms.setTitle(getString(R.string.hotel_rooms));
-        hotel_rooms.setFragment(true);
-        hotel_rooms.setFragmentName(new Fragment_HotelRooms());
-        hotel_rooms.setImage_resource(R.drawable.ic_hotel);
-        navDrawerItems.add(hotel_rooms);
-
         //For Sale
         NavDrawerItems for_sale = new NavDrawerItems();
         for_sale.setTitle(getString(R.string.for_sale));
@@ -121,6 +109,14 @@ public class MainActivity extends AppCompatActivity
         for_sale.setImage_resource(R.drawable.ic_for_sale);
         navDrawerItems.add(for_sale);
 
+        //Hotel Rooms
+        NavDrawerItems hotel_rooms = new NavDrawerItems();
+        hotel_rooms.setTitle(getString(R.string.hotel_rooms));
+        hotel_rooms.setFragment(true);
+        hotel_rooms.setFragmentName(new Fragment_HotelRooms());
+        hotel_rooms.setImage_resource(R.drawable.ic_hotel);
+        navDrawerItems.add(hotel_rooms);
+
         //Add property
         NavDrawerItems add_property = new NavDrawerItems();
         add_property.setTitle(getString(R.string.add_property));
@@ -128,6 +124,14 @@ public class MainActivity extends AppCompatActivity
         add_property.setFragmentName(new FragmentAddProperty());
         add_property.setImage_resource(R.drawable.ic_addpropertyicon);
         navDrawerItems.add(add_property);
+
+        //Add Hotel Rooms
+        NavDrawerItems add_hotel_room = new NavDrawerItems();
+        add_hotel_room.setTitle(getString(R.string.add_hotel_room));
+        add_hotel_room.setFragment(true);
+        add_hotel_room.setFragmentName(new FragmentAddHotelRooms());
+        add_hotel_room.setImage_resource(R.drawable.ic_addpropertyicon);
+        navDrawerItems.add(add_hotel_room);
 
         // Leads
         NavDrawerItems secondLevel = new NavDrawerItems();
@@ -174,7 +178,7 @@ public class MainActivity extends AppCompatActivity
 
                     Fragment fragment;
 
-                    if (navDrawerItems.getTitle().equals(getString(R.string.home))){
+                    if (navDrawerItems.getTitle().equals(getString(R.string.all_properties))){
                         fragment = navDrawerItems.getFragmentName();
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.content_frame, fragment);
@@ -188,13 +192,6 @@ public class MainActivity extends AppCompatActivity
                         ft.commit();
                     }
 
-                    if (navDrawerItems.getTitle().equals(getString(R.string.hotel_rooms))){
-                        fragment = navDrawerItems.getFragmentName();
-                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.content_frame, fragment);
-                        ft.commit();
-                    }
-
                     if (navDrawerItems.getTitle().equals(getString(R.string.for_sale))){
                         fragment = navDrawerItems.getFragmentName();
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -202,7 +199,21 @@ public class MainActivity extends AppCompatActivity
                         ft.commit();
                     }
 
+                    if (navDrawerItems.getTitle().equals(getString(R.string.hotel_rooms))){
+                        fragment = navDrawerItems.getFragmentName();
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.content_frame, fragment);
+                        ft.commit();
+                    }
+
                     if (navDrawerItems.getTitle().equals(getString(R.string.add_property))){
+                        fragment = navDrawerItems.getFragmentName();
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.content_frame, fragment);
+                        ft.commit();
+                    }
+
+                    if (navDrawerItems.getTitle().equals(getString(R.string.add_hotel_room))){
                         fragment = navDrawerItems.getFragmentName();
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.content_frame, fragment);
@@ -241,7 +252,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_filter) {
             return true;
         }
 
@@ -281,7 +292,7 @@ public class MainActivity extends AppCompatActivity
 
         switch(itemId){
             case R.id.home:
-                fragment = new Fragment_Home();
+                fragment = new Fragment_All_Properties();
                 break;
             case R.id.rental:
                 fragment = new Fragment_Rental();
