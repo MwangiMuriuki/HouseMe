@@ -69,10 +69,10 @@ public class AdapterHouseInfo extends RecyclerView.Adapter<AdapterHouseInfo.View
 
         int housePrice = Integer.parseInt(propertyInfoModelClass.getPrice());
 
-        myViewHolder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice));
+//        myViewHolder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice));
         myViewHolder.region.setText(propertyInfoModelClass.getRegion());
         myViewHolder.location.setText(propertyInfoModelClass.getLocation());
-        myViewHolder.bedrooms.setText(propertyInfoModelClass.getBedrooms());
+        myViewHolder.bedrooms.setText(propertyInfoModelClass.getBedrooms() + " bdr");
         myViewHolder.bathroom.setText(propertyInfoModelClass.getBathrooms());
 
         imageUri = Uri.parse(propertyInfoModelClass.getFeatured_image());
@@ -81,16 +81,17 @@ public class AdapterHouseInfo extends RecyclerView.Adapter<AdapterHouseInfo.View
         if(isForSale){
 
             myViewHolder.status.setText(R.string.for_sale);
+            myViewHolder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice));
         }else {
 
             myViewHolder.status.setText(R.string.rental);
+            myViewHolder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice) + " .p/m");
         }
 
         if (imageUri!=null){
 
             Glide.with(context).load(propertyInfoModelClass.getFeatured_image()).into(myViewHolder.image);
         }
-
 
         Log.e(TAG, "Item: " + position);
 
