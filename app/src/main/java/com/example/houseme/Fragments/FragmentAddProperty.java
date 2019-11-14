@@ -1,6 +1,7 @@
 package com.example.houseme.Fragments;
 
 
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
@@ -55,6 +56,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dmax.dialog.SpotsDialog;
+
 import static android.app.Activity.RESULT_OK;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -89,6 +92,8 @@ public class FragmentAddProperty extends Fragment {
 
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
+    AlertDialog addPropertyDialog;
+
     public FragmentAddProperty() {
         // Required empty public constructor
     }
@@ -100,6 +105,8 @@ public class FragmentAddProperty extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_property, container, false);
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
+
+        addPropertyDialog = new SpotsDialog(getContext(), R.style.addPropertyAlert);
 
         imageNameList = new ArrayList<>();
 
@@ -114,6 +121,13 @@ public class FragmentAddProperty extends Fragment {
 //
 //            binding.multipleImagesRV.setVisibility(View.VISIBLE);
 //        }
+
+        binding.placeHolderLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectFeaturedImage();
+            }
+        });
 
         binding.featuredImage.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -190,62 +204,62 @@ public class FragmentAddProperty extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+            if (requestCode == PICK_FEATURED_IMAGE && resultCode == RESULT_OK){
+                if (data.getData() != null){
+
+                    featuredImageUrl = data.getData();
+
+                    featuredImageUrlString = featuredImageUrl.toString();
+
+                    binding.featuredImage.setImageURI(featuredImageUrl);
+                    binding.placeHolderLayout.setVisibility(View.GONE);
+                    binding.featuredImage.setVisibility(View.VISIBLE);
+
+                    featuredImageFileName = getFeaturedFileName(featuredImageUrl);
+                }else {
+
+                    binding.placeHolderLayout.setVisibility(View.VISIBLE);
+                    binding.featuredImage.setVisibility(View.GONE);
+
+                    Toast.makeText(getContext(), "No Image Selected", Toast.LENGTH_LONG).show();
+                }
+            }
+
             if (requestCode== PICK_MULTIPLE && resultCode == RESULT_OK){
                 ClipData clipData = data.getClipData();
 
-//                if (clipData!=null){
-//
-//                    extraImage1 = clipData.getItemAt(0).getUri();
-//                    extraImage2 = clipData.getItemAt(1).getUri();
-//                    extraImage3 = clipData.getItemAt(2).getUri();
-//                    extraImage4 = clipData.getItemAt(3).getUri();
-//                    extraImage5 = clipData.getItemAt(4).getUri();
-//
-//                    binding.image1.setImageURI(extraImage1);
-//                    binding.image2.setImageURI(extraImage2);
-//                    binding.image3.setImageURI(extraImage3);
-//                    binding.image4.setImageURI(extraImage4);
-//                    binding.image5.setImageURI(extraImage5);
-//
-//                    extra1DownloadUrl = String.valueOf(extraImage1);
-//                    extra2DownloadUrl = String.valueOf(extraImage2);
-//                    extra3DownloadUrl = String.valueOf(extraImage3);
-//                    extra4DownloadUrl = String.valueOf(extraImage4);
-//                    extra5DownloadUrl = String.valueOf(extraImage5);
-//
-//                    for (int i = 0; i<clipData.getItemCount(); i++){
-//
-//                        ClipData.Item item = clipData.getItemAt(i);
-//                        Uri uri = item.getUri();
-//                        Log.e("Selected Images URLs", uri.toString());
-//                    }
-//                }
+                /*User has selected one image*/
+                if (data.getData()!=null){
 
-                if (clipData != null){
+                    Toast.makeText(getContext(), "Please select more than one image", Toast.LENGTH_LONG).show();
+
+                    binding.multipleImagesRV.setVisibility(View.GONE);
+
+                } else if (clipData != null){
 
                     int totalImages = clipData.getItemCount();
 
                     for (int i = 0; i<totalImages; i++){
-//
+
                         ClipData.Item item = clipData.getItemAt(i);
                         uri = item.getUri();
                         Log.e("Selected Images URLs", uri.toString());
                         pathImageName = getFileName(uri);
 
                         imageNameList.add(String.valueOf(uri));
+
                         multipleImagesAdpter.notifyDataSetChanged();
+
+                        binding.multipleImagesRV.setVisibility(View.VISIBLE);
                     }
+                }else {
+
+                    Toast.makeText(getContext(), "No images selected", Toast.LENGTH_LONG).show();
+
+                    binding.multipleImagesRV.setVisibility(View.GONE);
                 }
             }
 
-            if (requestCode== PICK_FEATURED_IMAGE && resultCode == RESULT_OK){
-                featuredImageUrl = data.getData();
-                featuredImageUrlString = featuredImageUrl.toString();
-
-                binding.featuredImage.setImageURI(featuredImageUrl);
-
-                featuredImageFileName = getFeaturedFileName(featuredImageUrl);
-            }
     }
 
     private String getFeaturedFileName(Uri featuredImage) {
@@ -354,56 +368,114 @@ public class FragmentAddProperty extends Fragment {
 
             else {
 
-                StorageReference storageRef = mStorageRef.child("Test Images").child("Featured Images").child(featuredImageFileName);
+                addPropertyDialog.setCancelable(false);
+                addPropertyDialog.show();
 
-                storageRef.putFile(featuredImageUrl).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                uploadFeaturedImage();
+
+            }
+        }
+    }
+
+    private void uploadFeaturedImage() {
+
+        StorageReference storageRef = mStorageRef.child("Test Images").child("Featured Images").child(featuredImageFileName);
+
+        UploadTask uploadTaskFeatured = storageRef.putFile(featuredImageUrl);
+
+        Task<Uri> task =uploadTaskFeatured.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                return storageRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+
+                featuredImageDownloadUrl = storageRef.getDownloadUrl().toString();
+
+                uploadExtraImages(featuredImageDownloadUrl);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Error on Featured image: ", e);
+
+            }
+        });
+
+/*
+        storageRef.putFile(featuredImageUrl).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    public void onSuccess(Uri uri) {
 
-                        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
+                        featuredImageDownloadUrl = uri.toString();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
 
-                                featuredImageDownloadUrl = uri.toString();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-
-                                Log.d(TAG, "Error getting featured image download url: ", e);
-                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-
-                            }
-                        });
+                        Log.d(TAG, "Error getting featured image download url: ", e);
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 
                     }
                 });
 
-//                storageRef.putFile(featuredImageUrl).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//
-////                        featuredImageDownloadUrl = storageRef.getDownloadUrl().toString();
-//
-//
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//
-//                        Log.d(TAG, "Error uploading Image: ", e);
-//                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-//
-//                    }
-//                });
+                uploadExtraImages(featuredImageDownloadUrl);
 
-                StorageReference multipleImagesRef = mStorageRef.child("Test Images").child(pathImageName);
-                multipleImagesRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        downloadUrls = Collections.singletonList(multipleImagesRef.getDownloadUrl().toString());
-                    }
-                });
+            }
+        });
+*/
+
+    }
+
+    private void uploadExtraImages(String featuredImageDownloadUrl) {
+
+        StorageReference multipleImagesRef = mStorageRef.child("Test Images").child(pathImageName);
+
+        UploadTask uploadTaskMultiple = multipleImagesRef.putFile(uri);
+
+        Task<Uri> task =uploadTaskMultiple.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                return multipleImagesRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+
+                downloadUrls = Collections.singletonList(uri.toString());
+
+                uploadPropertyData(featuredImageDownloadUrl, downloadUrls );
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Error on multiple images: ", e);
+            }
+        });
+
+/*
+        multipleImagesRef.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 
                 multipleImagesRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
@@ -419,48 +491,51 @@ public class FragmentAddProperty extends Fragment {
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
-//                featuredImageDownloadUrl = storageRef.getDownloadUrl().toString();
-//                downloadUrls = Collections.singletonList(multipleImagesRef.getDownloadUrl().toString());
 
-                if (featuredImageDownloadUrl == null || featuredImageDownloadUrl.isEmpty()){
+                uploadPropertyData(featuredImageDownloadUrl, downloadUrls );
+            }
+        });
+*/
+    }
 
-                    Toast.makeText(getContext(), "Featured image Download URL is empty", Toast.LENGTH_LONG).show();
+    private void uploadPropertyData(String featuredImageDownloadUrl, List<String> downloadUrls) {
 
-                }else if(downloadUrls == null || downloadUrls.isEmpty()){
+        if (featuredImageDownloadUrl == null || featuredImageDownloadUrl.isEmpty()){
 
-                    Toast.makeText(getContext(), "Multiple images Download URL is empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Featured image Download URL is empty", Toast.LENGTH_LONG).show();
 
-                } else {
+        }else if(downloadUrls == null || downloadUrls.isEmpty()){
 
-                    //
-                    TestModelClass testModelClass = new TestModelClass(featuredImageDownloadUrl, downloadUrls, price, region, location, bedrooms, bath, desc, forSale);
+            Toast.makeText(getContext(), "Multiple images Download URL is empty", Toast.LENGTH_LONG).show();
 
-                    firestore.collection("Properties").add(testModelClass).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
+        } else {
 
-                            binding.town.setText("");
-                            binding.location.setText("");
-                            binding.bedrooms.setText("");
-                            binding.bathrooms.setText("");
-                            binding.price.setText("");
-                            binding.description.setText("");
-                            binding.radioGroup.clearCheck();
+            TestModelClass testModelClass = new TestModelClass(featuredImageDownloadUrl, downloadUrls, price, region, location, bedrooms, bath, desc, forSale);
 
-                            Toast.makeText(getContext(), "Property has been added Successfully!", Toast.LENGTH_LONG).show();
+            firestore.collection("Properties").add(testModelClass).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
 
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
+                    addPropertyDialog.cancel();
 
-                            Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    binding.town.setText("");
+                    binding.location.setText("");
+                    binding.bedrooms.setText("");
+                    binding.bathrooms.setText("");
+                    binding.price.setText("");
+                    binding.description.setText("");
+                    binding.radioGroup.clearCheck();
+
+                    Toast.makeText(getContext(), "Property has been added Successfully!", Toast.LENGTH_LONG).show();
 
                 }
-                //
-            }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 

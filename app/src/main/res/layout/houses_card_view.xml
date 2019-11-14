@@ -67,7 +67,7 @@
                 android:layout_marginTop="3dp"
                 android:fontFamily="sans-serif-condensed"
                 android:text="Nairobi"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="14sp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/dimfivedp"/>
@@ -92,7 +92,7 @@
                 android:layout_marginStart="3dp"
                 android:fontFamily="sans-serif-condensed"
                 android:text="Kasarani, Opposite Naivas supermarket"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
@@ -116,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
                 android:text="2"
+                android:textColor="@color/textColorSecondary"
                 android:layout_marginStart="3dp"
                 android:textSize="14sp"
                 android:layout_gravity="center"/>
@@ -140,6 +141,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
                 android:text="2"
+                android:textColor="@color/textColorSecondary"
                 android:layout_marginStart="3dp"
                 android:textSize="15sp"
                 android:layout_gravity="center"/>
@@ -164,6 +166,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
                 android:text="No"
+                android:textColor="@color/textColorSecondary"
                 android:layout_marginStart="3dp"
                 android:textSize="15sp"
                 android:layout_gravity="center"/>

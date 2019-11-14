@@ -36,7 +36,6 @@ public class MultipleImagesAdpter extends RecyclerView.Adapter<MultipleImagesAdp
         String imageUrl = imageNameList.get(position);
 
         holder.imageView.setImageURI(Uri.parse(imageUrl));
-        holder.urlString.setText(imageUrl);
 
     }
 
@@ -48,12 +47,12 @@ public class MultipleImagesAdpter extends RecyclerView.Adapter<MultipleImagesAdp
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
-        TextView urlString;
+
          public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.selectedImage);
-            urlString = itemView.findViewById(R.id.imageName);
+
         }
     }
 }

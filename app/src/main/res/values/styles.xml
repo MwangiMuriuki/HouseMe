@@ -26,7 +26,15 @@
     <style name="HelperText" parent="TextAppearance.Design.HelperText">
         <item name="android:textSize">13sp</item>
         <item name="android:textStyle">italic</item>
+    </style>
 
+    <style name="addPropertyAlert" parent="android:Theme.DeviceDefault.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">Uploading Property...</item>
+        <item name="DialogSpotColor">@color/colorAccent</item>
+        <item name="DialogSpotCount">5</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
 

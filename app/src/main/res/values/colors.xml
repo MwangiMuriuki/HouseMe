@@ -2,18 +2,19 @@
 <resources>
     <color name="colorPrimary">#59028F</color>
     <color name="colorPrimaryDark">#42016B</color>
+    <color name="colorAccent">#D81B60</color>
     <color name="colorAccent2">#FFC107</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorSecondary">#757575</color>
+    <color name="background_color">#8ce5e7eb</color>
+    <color name="divider_color">#bdbdbd</color>
+
+
+
 
     <color name="colorTwitter">#55acee</color>
     <color name="colorFacebook">#3b5998</color>
     <color name="colorGoogle">#dd4b39</color>
-
-    <color name="colorPrimary2">#008577</color>
-    <color name="colorPrimaryDark2">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="colorBlack">#000000</color>
-
-    <color name="background_color">#8ce5e7eb</color>
-
 </resources>
