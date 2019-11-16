@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.houseme.Adapters.NavDrawerAdapter;
@@ -12,6 +13,7 @@ import com.example.houseme.Fragments.FragmentAddHotelRooms;
 import com.example.houseme.Fragments.FragmentAddProperty;
 import com.example.houseme.Fragments.Fragment_ForSale;
 import com.example.houseme.Fragments.Fragment_All_Properties;
+import com.example.houseme.Fragments.Fragment_Home;
 import com.example.houseme.Fragments.Fragment_HotelRooms;
 import com.example.houseme.Fragments.Fragment_Rental;
 import com.example.houseme.Models.NavDrawerItems;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity
 
         list = (RecyclerView) findViewById(R.id.list);
 
+        showMainFragment();
         setupNavDrawerMenu();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -71,27 +74,37 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        displaySelectedScreen(R.id.home);
+    }
+
+    private void showMainFragment() {
+
+        Fragment fragment = new Fragment_Home();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
     }
 
     private void setupNavDrawerMenu() {
-
-//        ArrayList<String> nav_item = new ArrayList<>();
-//        nav_item.add("Home");
-//        nav_item.add("Rentals");
-//        nav_item.add("For Sale");
-//        nav_item.add("Add Property");
-//        nav_item.add("Logout");
 
         List<NavDrawerItems> navDrawerItems = new ArrayList<>();
 
         //Home
         NavDrawerItems home = new NavDrawerItems();
-        home.setTitle(getString(R.string.all_properties));
+        home.setTitle(getString(R.string.home));
         home.setFragment(true);
-        home.setFragmentName(new Fragment_All_Properties());
+        home.setFragmentName(new Fragment_Home());
         home.setImage_resource(R.drawable.ic_home);
         navDrawerItems.add(home);
+
+        //All Properties
+        NavDrawerItems allProperties = new NavDrawerItems();
+        allProperties.setTitle(getString(R.string.all_properties));
+        allProperties.setFragment(true);
+        allProperties.setFragmentName(new Fragment_All_Properties());
+        allProperties.setImage_resource(R.drawable.ic_home);
+        navDrawerItems.add(allProperties);
 
         //Rentals Fragment
         NavDrawerItems rentals = new NavDrawerItems();
@@ -161,7 +174,7 @@ public class MainActivity extends AppCompatActivity
                 secondLevelSubmenus.add(fourBedroom);
 
         secondLevel.setSubMenus(secondLevelSubmenus);
-        navDrawerItems.add(secondLevel);
+       // navDrawerItems.add(secondLevel);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         list.setLayoutManager(layoutManager);
@@ -177,6 +190,13 @@ public class MainActivity extends AppCompatActivity
                 if (navDrawerItems!=null){
 
                     Fragment fragment;
+
+                    if (navDrawerItems.getTitle().equals(getString(R.string.home))){
+                        fragment = navDrawerItems.getFragmentName();
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.content_frame, fragment);
+                        ft.commit();
+                    }
 
                     if (navDrawerItems.getTitle().equals(getString(R.string.all_properties))){
                         fragment = navDrawerItems.getFragmentName();

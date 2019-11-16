@@ -49,7 +49,7 @@ public class Fragment_All_Properties extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vw = inflater.inflate(R.layout.fragment_home, container, false);
+        View vw = inflater.inflate(R.layout.fragment_all_properties, container, false);
         list = new ArrayList<>();
         propertyInfoList = new ArrayList<>();
 

@@ -1,12 +1,8 @@
 package com.example.houseme.Adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,36 +11,31 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.houseme.Activities.ActivityViewProperty;
-import com.example.houseme.Models.ModelClassHouseInfo;
 import com.example.houseme.Models.PropertyInfoModelClass;
 import com.example.houseme.R;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
+public class Adapter_HomeOneBdr extends RecyclerView.Adapter<Adapter_HomeOneBdr.MyViewHolder> {
 
-
-public class AdapterHouseInfo extends RecyclerView.Adapter<AdapterHouseInfo.ViewHolder> {
-
-    List<ModelClassHouseInfo> modelClassHouseInfoList;
+    private static final String TAG = null;
     List<PropertyInfoModelClass> propertyInfoModelClassList;
     Context context;
     FirebaseFirestore firebaseFirestore;
-    FirebaseStorage firebaseStorage;
-    StorageReference storageReference;
 
     String viewFeaturedImage, viewPrice, viewRegion, viewLocation, viewBedroom, viewBathrooms, viewParking, viewForSale, viewDesc;
     Uri imageUri;
     Boolean isForSale;
 
-    public AdapterHouseInfo(List<PropertyInfoModelClass> propertyInfoModelClassList, Context context, FirebaseFirestore firebaseFirestore) {
+    public Adapter_HomeOneBdr(List<PropertyInfoModelClass> propertyInfoModelClassList, Context context, FirebaseFirestore firebaseFirestore) {
         this.propertyInfoModelClassList = propertyInfoModelClassList;
         this.context = context;
         this.firebaseFirestore = firebaseFirestore;
@@ -52,62 +43,62 @@ public class AdapterHouseInfo extends RecyclerView.Adapter<AdapterHouseInfo.View
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View myView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recycler_view_layouts, parent, false);
 
-        View myView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.houses_card_view, viewGroup, false);
-        AdapterHouseInfo.ViewHolder viewHolder = new AdapterHouseInfo.ViewHolder(myView);
+        Adapter_HomeOneBdr.MyViewHolder viewHolder = new Adapter_HomeOneBdr.MyViewHolder(myView);
 
         return viewHolder;
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder myViewHolder, int position) {
-        int pos = myViewHolder.getAdapterPosition();
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        int pos = holder.getAdapterPosition();
 
         final PropertyInfoModelClass propertyInfoModelClass = propertyInfoModelClassList.get(pos);
 
         int housePrice = Integer.parseInt(propertyInfoModelClass.getPrice());
 
 //        myViewHolder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice));
-        myViewHolder.region.setText(propertyInfoModelClass.getRegion());
-        myViewHolder.location.setText(propertyInfoModelClass.getLocation());
-        myViewHolder.bedrooms.setText(propertyInfoModelClass.getBedrooms() + " bdr");
-        myViewHolder.bathroom.setText(propertyInfoModelClass.getBathrooms());
+        holder.region.setText(propertyInfoModelClass.getRegion());
+        holder.location.setText(propertyInfoModelClass.getLocation());
+        holder.bedrooms.setText(propertyInfoModelClass.getBedrooms() + " bdr");
+        holder.bathroom.setText(propertyInfoModelClass.getBathrooms());
 
         imageUri = Uri.parse(propertyInfoModelClass.getFeatured_image());
         isForSale = propertyInfoModelClass.getForSale();
 
         if(isForSale){
 
-            myViewHolder.status.setText(R.string.for_sale);
-            myViewHolder.status.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
-            myViewHolder.status.setBackground(context.getDrawable(R.drawable.rounded_corners_button_white));
-            myViewHolder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice));
+            holder.status.setText(R.string.for_sale);
+            holder.status.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+            holder.status.setBackground(context.getDrawable(R.drawable.rounded_corners_button_white));
+            holder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice));
+
         }else {
 
-            myViewHolder.status.setText(R.string.rental);
-            myViewHolder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice) + " .p/m");
+            holder.status.setText(R.string.rental);
+            holder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice) + " .p/m");
         }
 
         if (imageUri!=null){
 
-            Glide.with(context).load(propertyInfoModelClass.getFeatured_image()).into(myViewHolder.image);
+            Glide.with(context).load(propertyInfoModelClass.getFeatured_image()).into(holder.image);
         }
 
         Log.e(TAG, "Item: " + position);
 
-        myViewHolder.cardLayout.setOnClickListener(new View.OnClickListener() {
+        holder.cardLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 viewFeaturedImage = propertyInfoModelClass.getFeatured_image();
-                viewPrice = myViewHolder.price.getText().toString();
-                viewRegion = myViewHolder.region.getText().toString();
-                viewBathrooms = myViewHolder.bathroom.getText().toString();
-                viewBedroom = myViewHolder.bedrooms.getText().toString();
-                viewForSale = myViewHolder.status.getText().toString();
-                viewLocation = myViewHolder.location.getText().toString();
+                viewPrice = holder.price.getText().toString();
+                viewRegion = holder.region.getText().toString();
+                viewBathrooms = holder.bathroom.getText().toString();
+                viewBedroom = holder.bedrooms.getText().toString();
+                viewForSale = holder.status.getText().toString();
+                viewLocation = holder.location.getText().toString();
                 viewDesc = propertyInfoModelClass.getDescription().toString();
 
                 Intent viewProperty = new Intent(context, ActivityViewProperty.class);
@@ -129,29 +120,18 @@ public class AdapterHouseInfo extends RecyclerView.Adapter<AdapterHouseInfo.View
     }
 
     @Override
-    public int getItemViewType(int position) {
-
-        return super.getItemViewType(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
-    }
-
-    @Override
     public int getItemCount() {
-//        return modelClassHouseInfoList.size();
+
         return propertyInfoModelClassList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
         TextView price,region, location,bedrooms, bathroom, description, picUrl, status;
         LinearLayout cardLayout;
 
-        public ViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             image = itemView.findViewById(R.id.housePic);
@@ -162,7 +142,6 @@ public class AdapterHouseInfo extends RecyclerView.Adapter<AdapterHouseInfo.View
             bedrooms = itemView.findViewById(R.id.houseSize);
             bathroom = itemView.findViewById(R.id.houseBaths);
             cardLayout = itemView.findViewById(R.id.cardLayout);
-
         }
     }
 }

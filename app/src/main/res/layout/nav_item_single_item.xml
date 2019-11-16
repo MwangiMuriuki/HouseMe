@@ -11,7 +11,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:gravity="center">
 
                 <ImageView
                     android:id="@+id/icon"
@@ -22,12 +23,12 @@
                 <TextView
                     android:id="@+id/navItem"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="20dp"
                     android:lineSpacingMultiplier="0.6"
                     android:layout_marginStart="10dp"
                     android:text="Item"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="normal"/>
 
         </LinearLayout>
