@@ -72,7 +72,7 @@ public class Adapter_HomeTwoBdr extends RecyclerView.Adapter<Adapter_HomeTwoBdr.
         if(isForSale){
 
             holder.status.setText(R.string.for_sale);
-            holder.status.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+            holder.status.setTextColor(context.getResources().getColor(R.color.colorWhite));
             holder.status.setBackground(context.getDrawable(R.drawable.rounded_corners_button_white));
             holder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice));
 

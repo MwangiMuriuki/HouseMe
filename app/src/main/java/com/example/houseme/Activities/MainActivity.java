@@ -146,6 +146,15 @@ public class MainActivity extends AppCompatActivity
         add_hotel_room.setImage_resource(R.drawable.ic_addpropertyicon);
         navDrawerItems.add(add_hotel_room);
 
+        //Add property Activity
+        NavDrawerItems add_house = new NavDrawerItems();
+        add_house.setTitle(getString(R.string.activity_add_property));
+        add_house.setActivity(true);
+        add_house.setActivityName(ActivityAddProperty.class);
+        add_house.setImage_resource(R.drawable.ic_addpropertyicon);
+        navDrawerItems.add(add_house);
+
+
         // Leads
         NavDrawerItems secondLevel = new NavDrawerItems();
         secondLevel.setTitle(getString(R.string.second_level_menu));
@@ -238,6 +247,11 @@ public class MainActivity extends AppCompatActivity
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.content_frame, fragment);
                         ft.commit();
+                    }
+
+                    if (navDrawerItems.getTitle().equals(getString(R.string.activity_add_property))){
+                        Intent intent = new Intent(MainActivity.this, navDrawerItems.getActivityName());
+                        startActivity(intent);
                     }
 
                     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

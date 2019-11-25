@@ -70,14 +70,14 @@ public class Adapter_HomeFeatured extends RecyclerView.Adapter<Adapter_HomeFeatu
         if(isForSale){
 
             holder.status.setText(R.string.for_sale);
-            holder.status.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+            holder.status.setTextColor(context.getResources().getColor(R.color.colorWhite));
             holder.status.setBackground(context.getDrawable(R.drawable.rounded_corners_button_white));
             holder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice));
 
         }else {
 
             holder.status.setText(R.string.rental);
-            holder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice) + " .p/m");
+            holder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice) + " per month");
         }
 
         if (imageUri!=null){

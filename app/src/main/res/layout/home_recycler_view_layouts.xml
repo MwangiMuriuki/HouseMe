@@ -70,7 +70,8 @@
                 android:textColor="@color/textColorPrimary"
                 android:textSize="14sp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/dimfivedp"/>
+                android:layout_marginEnd="@dimen/dimfivedp"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 

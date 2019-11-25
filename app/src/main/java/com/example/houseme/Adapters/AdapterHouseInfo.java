@@ -81,7 +81,7 @@ public class AdapterHouseInfo extends RecyclerView.Adapter<AdapterHouseInfo.View
         if(isForSale){
 
             myViewHolder.status.setText(R.string.for_sale);
-            myViewHolder.status.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+            myViewHolder.status.setTextColor(context.getResources().getColor(R.color.colorWhite));
             myViewHolder.status.setBackground(context.getDrawable(R.drawable.rounded_corners_button_white));
             myViewHolder.price.setText("Ksh. " + NumberFormat.getNumberInstance(Locale.US).format(housePrice));
         }else {
