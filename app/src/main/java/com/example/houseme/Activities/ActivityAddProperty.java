@@ -26,6 +26,8 @@ public class ActivityAddProperty extends AppCompatActivity {
 
     ActivityAddPropertyBinding binding;
 
+    public static String regionData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,23 +40,15 @@ public class ActivityAddProperty extends AppCompatActivity {
 
         setupViewPager(binding.viewpager);
         binding.tabLayout.setupWithViewPager(binding.viewpager);
+
     }
 
     private void setupViewPager(ViewPager viewpager) {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentAddPhotos(), "Photos");
         adapter.addFragment(new FragmentInfo(), "Description");
+        adapter.addFragment(new FragmentAddPhotos(), "Photos");
         viewpager.setAdapter(adapter);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -86,5 +80,14 @@ public class ActivityAddProperty extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

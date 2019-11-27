@@ -69,7 +69,8 @@ public class FragmentAddProperty extends Fragment {
 
     FragmentAddPropertyBinding binding;
     String region, location, bedrooms, bath, price, desc;
-    Boolean forSale;
+    Boolean hasParking, hasCctv, hasWifi, hasAccessibility, hasLaundry, hasPlayground, hasSolar,
+            hasSwimming, forSale, isResidential;
 
     RecyclerView extraImagesRV;
     List<String> imageNameList;
@@ -510,7 +511,8 @@ public class FragmentAddProperty extends Fragment {
 
         } else {
 
-            TestModelClass testModelClass = new TestModelClass(featuredImageDownloadUrl, downloadUrls, price, region, location, bedrooms, bath, desc, forSale);
+            TestModelClass testModelClass = new TestModelClass(null, null, price, region, location, bedrooms, bath, desc, hasParking, hasCctv, hasWifi, hasAccessibility, hasLaundry, hasPlayground, hasSolar,
+                    hasSwimming, forSale, isResidential );
 
             firestore.collection("Properties").add(testModelClass).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.houseme.Activities.ActivityAddProperty;
 import com.example.houseme.R;
 import com.example.houseme.databinding.FragmentAddPhotosBinding;
 
@@ -17,7 +18,6 @@ import com.example.houseme.databinding.FragmentAddPhotosBinding;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentAddPhotos extends Fragment {
-
 
     FragmentAddPhotosBinding binding;
 
